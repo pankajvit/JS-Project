@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Your Shopping List</title>
+  </head>
+  <body>
+    <ul>
+      <li>My Item</li>
+      <li>Another Item</li>
+      <li>Wow Cool</li>
+      <li>New Color</li>
+    </ul>
+    <input type="text" name="newItem" />
+    <button id="clicker">+Add</button>
+    <script>
+      let addButton = document.querySelector("#clicker");
+      let listParent = document.querySelector("ul");
+
+      addButton.addEventListener("click", function() {
+        let inputData = document.querySelector("input").value;
+        console.log("inside event listener and inputData value is "+inputData);
+        if (inputData.length > 3) {
+            console.log('inside if condition');
+          let listLi = document.createElement("li");
+          let listText = document.createTextNode(inputData);
+          listLi.appendChild(listText);
+          listParent.appendChild(listLi);
+        }
+      });
+    </script>
+  </body>
+</html>

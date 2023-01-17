@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Greeting by Time</title>
+    <style>
+        .div{
+            height: 120px;
+            width: 200px;
+            color: white;
+            font-size: 2em;
+            display: none;
+        }
+        .yellow{
+            background-color: yellow;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .black{
+            background-color: black;
+        }
+        .show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="div"></div>
+    <button>Message</button>
+    <script>
+        let divBox = document.querySelector('div');
+        let msg = '';
+        let classToAdd = '';
+        let btn = document.querySelector('button');
+        btn.addEventListener('click',function(){
+            let time = new Date(2023,0, 11, 14);
+            time = time.getHours();
+            //console.log(time);
+            if(time > 17){
+                msg = 'It\' Evening';
+                classToAdd = 'black';
+            } else if(time > 12){
+                msg = 'It\' Afternoon';
+                classToAdd = 'blue';
+            }else if(time >= 1){
+                msg = 'It\' morning';
+                classToAdd = 'yellow';
+            }
+            divBox.innerHTML = msg;
+            divBox.classList.add(classToAdd);
+            divBox.classList.add('show');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Your Shopping List</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>My Item</li>
+      <li>Another Item</li>
+      <li>Wow Cool</li>
+      <li>New Color</li>
+    </ul>
+    <input type="text" name="newItem" />
+    <button id="clicker">+Add</button>
+    <script>
+      let listItem = document.querySelectorAll('li');
+      listItem.forEach(function(ele,index){
+        ele.addEventListener('mouseover',function(){
+            this.classList.add('red');
+        });
+        ele.addEventListener('mouseout',function(){
+            this.classList.remove('red');
+        });
+      });
+    </script>
+  </body>
+</html>

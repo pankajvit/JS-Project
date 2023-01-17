@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Color Changer</title>
+</head>
+<body>
+    <span>Test1</span><br>
+    <span>Test 2</span><br>
+    <span>Test 3</span><br>
+    <button id="btn">Background Color Changer</button>
+    <script>
+        let div = document.querySelectorAll('span');
+        div.forEach(function(ele,index){
+            div[index].onclick = function(e){
+                e.target.style.backgroundColor = 'rgb('+random(255)+','+random(255)+','+random(255)+')';
+            }
+        });
+        let btn=document.querySelector("#btn");
+        btn.addEventListener("click",function(){
+            document.body.style.backgroundColor = 'rgb('+random(255)+','+random(255)+','+random(255)+')';
+        });
+        function random(number){
+            return Math.random() * (number + 1);
+        }
+    </script>
+</body>
+</html>

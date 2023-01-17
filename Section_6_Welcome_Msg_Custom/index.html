@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Message Customized</title>
+    <style>
+        .msg{
+            font-size: 2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <div class="msg"></div>
+    <br>
+    <span>Name:</span>
+    <input type="text"/>
+    <button>Message</button>
+    <script>
+        let msgArea = document.querySelector('.msg');
+        let btn = document.querySelector('button');
+        btn.addEventListener('click',function(){
+            let inputText = document.querySelector('input');
+            msgArea.innerHTML = `Hello, Welcome ${inputText.value}`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Manipulation</title>
+  </head>
+  <body>
+    <div id="myID">
+      <h1>Hello World</h1>
+      <div class="first pickme">
+        <span>Span 1!</span> <span>Span 2</span> <span>Span 3!</span>
+        <span>Span 4</span> <span>Span 5!</span> <span>Span 6</span>
+        <span>Span 7!</span>
+      </div>
+      <p class="first">Hello World</p>
+      <ul class="second">
+        <li class="first"><a href="#">Link One</a></li>
+        <li class="first"><a href="#">Link Two</a></li>
+        <li><a href="#">Link Three</a></li>
+        <li><a href="#">Link Four</a></li>
+        <li class="first"><a href="#">Link Five</a></li>
+        <li class="first"><a href="#">Link Six</a></li>
+        <li><a href="#">Link Seven</a></li>
+      </ul>
+    </div>
+    <script>
+        let listItems = document.querySelectorAll("li");
+        listItems.forEach(function(item,index){
+            item.setAttribute("Id","index"+(index+1));
+            item.innerText="list item #"+index;
+        });
+        let pickMeClassTag = document.querySelector(".pickme");
+        pickMeClassTag.remove();
+    </script>
+  </body>
+</html>

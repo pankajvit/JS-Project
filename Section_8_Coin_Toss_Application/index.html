@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Toss Application - Player Vs Computer</title>
+    <style>
+        
+        /*.msg{
+            margin: 10px;
+        }
+        button{
+            margin-left: 10px;
+        }
+        */
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Player Ground Area</legend>
+        <div class="msg">
+            Select either Heads or Tails
+        </div>
+        <button>Heads</button>
+        <button>Tails</button>
+    </fieldset>
+    <script>
+        let userScore=0;
+        let computerScore=0;
+        let gameRound = 1;
+        let btn = document.querySelectorAll('button');
+        let msgBox = document.querySelector('.msg');
+        for(let i=0;i<btn.length;i++){
+            btn[i].addEventListener('click',startGame);
+        }
+
+        function startGame(e){
+            let modeArray = ['Heads','Tails'];
+            let computerSelectionMode = modeArray[randomSelection(modeArray)];
+            console.log('computer random selection '+computerSelectionMode); 
+            let userSelectionMode = e.target.innerText;
+            msgBox.innerHTML = 'Computer Selected :'+computerSelectionMode+'<br>';
+            msgBox.innerHTML += 'Player Selected :'+userSelectionMode+'<br>';
+            let winner = winnerLogic(userSelectionMode, computerSelectionMode);
+            msgBox.innerHTML += winner+' Wins'+'<br>';
+            if(winner=='Player'){
+                ++userScore;
+            }else{
+                ++computerScore;
+            }
+            msgBox.innerHTML += 'Player '+userScore+' '+'Computer '+computerScore;
+            console.log('btn clicked '+e.target.innerText);
+            /*
+            let fieldsetTag = document.createElement('fieldset');
+            let legendTag = document.createElement('legend');
+            let legendText=document.createTextNode('Game Round No. '+gameRound);
+            legendTag.appendChild(legendText);
+            fieldsetTag.appendChild(legendTag);
+            document.body.appendChild(fieldsetTag);
+            let computerSelectionParagraphTag = document.createElement('p');
+            let computerSelectionParagraphText = document.createTextNode('Computer Selected: '+computerSelectionMode);
+            computerSelectionParagraphTag.appendChild(computerSelectionParagraphText);
+            fieldsetTag.appendChild(computerSelectionParagraphTag);
+            let playerSelectionParagraphTag = document.createElement('p');
+            let playerSelectionParagraphTagText = document.createTextNode('Player Selected: '+userSelectionMode);
+            playerSelectionParagraphTag.appendChild(playerSelectionParagraphTagText);
+            fieldsetTag.appendChild(playerSelectionParagraphTag);
+
+
+
+            let winnerParagraphTag = document.createElement('p');
+            let winnerParagraphTagText = document.createTextNode('Winner: '+winner);
+            winnerParagraphTag.appendChild(winnerParagraphTagText);
+            fieldsetTag.appendChild(winnerParagraphTag);
+
+            let currentScorePara = document.createElement('p');
+            let currentScoreParaText = document.createTextNode('Current Score :');
+            currentScorePara.appendChild(currentScoreParaText);
+            fieldsetTag.appendChild(currentScorePara);
+            let playerScoreSpanTag = document.createElement('span');
+            let playerScoreSpanText = document.createTextNode('Player Score: '+userScore+' ');
+            playerScoreSpanTag.appendChild(playerScoreSpanText);
+            fieldsetTag.appendChild(playerScoreSpanTag);
+
+
+
+            let computerScoreSpanTag = document.createElement('span');
+            let computerScoreSpanText = document.createTextNode('Player Score: '+computerScore+' ');
+            computerScoreSpanTag.appendChild(computerScoreSpanText);
+            fieldsetTag.appendChild(computerScoreSpanTag);
+            gameRound++;
+             */
+        }
+       
+        function randomSelection(arr){
+            return Math.floor(Math.random() * arr.length);
+        }
+        function winnerLogic(userMode, computerMode){
+            console.log(userMode+' '+computerMode);
+            let winner;
+            if(userMode == computerMode){
+                winner='Player';
+            }else{
+                winner='Computer';
+            }
+            return winner;
+        }
+    </script>
+</body>
+</html>
