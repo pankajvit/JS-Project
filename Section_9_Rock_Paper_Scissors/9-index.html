@@ -12,12 +12,86 @@
     <button>Paper</button>
     <button>Scissors</button>
     <script>
+        // Selection of all the button
         let btn = document.querySelectorAll('button');
+        
+        // Selection of Message section
+        let msgBox = document.querySelector('.msg');
+
+        // store computer & player score
+        let computerScore = 0; 
+        let PlayerScore = 0;
+
+        // final winner Message
+        let finalWinnerMessage = '';
+
+        // loop through all the button and add event listener in it
         for(let i=0;i<btn.length;i++){
             btn[i].addEventListener('click',startGame);
         }
+
+        // call this function through event listener
         function startGame(e){
             console.log('btn clicked '+e.target.innerText);
+            // users clicked mode store here
+            let userSelectedMode = e.target.innerText; 
+            console.log(userSelectedMode);
+            // computer will select any value from below array
+            const modesForGame = ['Rock','Paper','Scissors'];
+            // compute random selected mode store here
+            let computerSelectedMode = modesForGame[computerRandomSelection(modesForGame)];
+            console.log(computerSelectedMode);
+            // calculate gamelogic and store winner message here
+            let gameWinner = winnerLogicForGame(userSelectedMode, computerSelectedMode);
+            console.log(gameWinner);
+            if(gameWinner == 'Computer'){
+                computerScore++;
+                finalWinnerMessage = 'Computer Wins';
+            }else if(gameWinner == 'Player'){
+                PlayerScore++;
+                finalWinnerMessage = 'Player Wins';
+            }else{
+                finalWinnerMessage = 'Draw results in a tie match';
+            }
+            msgBox.innerHTML = 'Player['+PlayerScore+'] '+'Computer['+computerScore+']'+'<br>';
+            msgBox.innerHTML += userSelectedMode + ' vs '+computerSelectedMode+'<br>';
+            msgBox.innerHTML += '<b>'+finalWinnerMessage+'!<b>';
+        }
+
+        // select random mode from ['Rock','Paper','Scissors']
+        function computerRandomSelection(modes){
+            return Math.floor(Math.random() * modes.length);
+        }
+        function winnerLogicForGame(usermode, computermode){
+            let winner = '';
+            if(usermode == 'Rock'){
+                if(computermode == 'Paper'){
+                    winner = 'Computer';
+                }else if(computermode == 'Scissors'){
+                    winner = 'Player';
+                }else{
+                    winner = 'tie';
+                }
+            }
+            if(usermode == 'Paper'){
+                if(computermode == 'Rock'){
+                    winner = 'Player';
+                }else if(computermode == 'Scissors'){
+                    winner = 'Computer';
+                } else {
+                    winner = 'tie';
+                }
+            }
+            if(usermode == 'Scissors'){
+                if(computermode == 'Paper'){
+                    winner = 'Player';
+                }else if(computermode == 'Rock'){
+                    winner = 'Computer';
+                }else {
+                    winner = 'tie';
+                }
+            }
+            return winner;
         }
     </script>
 </body>
