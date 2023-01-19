@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Sounds with JS</title>
+    <style>
+        div{
+            border: 1px solid black;
+            padding: 10px;
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            margin: 10px;
+        }
+        .red{
+            color: red;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="lion">Lion</div>
+    <div class="cougar">Cougar</div>
+    <div class="bark">Bark</div>
+    <script>
+        let animalBox = document.querySelectorAll('div');
+        for(let i=0;i<animalBox.length;i++){
+            animalBox[i].addEventListener('click',playSound);
+        }
+        function playSound(e){
+            let lionVoice = new Audio('sound/lion.mp3');
+            let dogVoice = new Audio('sound/bark.mp3');
+            let cougarVoice = new Audio('sound/cougar.mp3');
+            console.log(e.target.innerText);
+            let clickedAnimal = e.target.innerText;
+            if(clickedAnimal == 'Lion'){
+                lionVoice.play();
+                makeRed(e);
+            }else if(clickedAnimal == 'Cougar'){
+                cougarVoice.play();
+                makeRed(e);
+            }else if(clickedAnimal == 'Bark'){
+                dogVoice.play();
+                makeRed(e);
+            }
+        }
+        function makeRed(e){
+            let ele = e.target;
+            ele.classList.add('red');
+            setTimeout(function(){
+                ele.classList.remove('red');
+            }, 200);
+        }
+    </script>
+</body>
+</html>

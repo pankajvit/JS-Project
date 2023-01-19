@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Dice Game</title>
+    <style>
+        .winnerMsg{
+            width: 420px;
+            text-align: center;
+            font-size: 2em;
+            margin-left: 20px;
+        }
+        .PlayerArea{
+            display: inline-block;
+            width: 200px;
+            height: 200px;   
+            border: 1px solid black;
+            margin-left: 20px;
+        }
+        .PlayerArea h2{
+            text-align: center;
+        }
+        .rollbtn{
+            width: 430px;
+            height: 30px;
+            text-align: center;
+            margin-top: 10px;
+            border: 1px solid black;
+            background-color: gray;
+            margin-left: 20px;
+        }
+        .randomNumber{
+            width: 120px;
+            height: 120px;
+            border: 1px solid black;
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="winnerMsg">Player</div>
+    <div class="Player-1-Dice-Area PlayerArea">
+        <h2>Player 1</h2>
+        <div class="randomNumber diceRandomNoForPlayer1"></div>
+    </div>
+    <div class="Player-2-Dice-Area PlayerArea">
+        <h2>Player 2</h2>
+        <div class="randomNumber diceRandomNoForPlayer2"></div>
+    </div>
+    <div class="rollbtn">Roll</div>
+    <script>
+        // selection for dice random number box for player 1
+        let diceRandomNoForPlayer1 = document.querySelector('diceRandomNoForPlayer1');
+        // selection for dice random number box for player 2
+        let diceRandomNoForPlayer2 = document.querySelector('diceRandomNoForPlayer2');
+        // click on roll dice button
+        let roll = document.querySelector('.rollbtn');
+        // add click event listner to start the game
+        roll.addEventListener('click',diceRoll);
+
+        // function for event listener
+        function diceRoll(){
+            // a random method will return in the range of 1 to 6
+            let player1RandomNumber = diceRandomNumber(6);
+            let player2RandomNumber = diceRandomNumber(6);
+        }
+
+        // function for call random method
+        function diceRandomNumber(maxNumber){
+            return Math.floor(Math.random() * 6) + 1;
+        }
+    </script>
+</body>
+</html>
