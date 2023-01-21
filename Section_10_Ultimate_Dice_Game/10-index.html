@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultimate Dice Game</title>
     <style>
+        
         .winnerMsg{
             width: 420px;
             text-align: center;
@@ -32,10 +33,12 @@
             margin-left: 20px;
         }
         .randomNumber{
-            width: 120px;
-            height: 120px;
-            border: 1px solid black;
-            margin-left: 40px;
+            width: 200px;
+            height: 200px;
+            /*border: 1px solid black;*/
+            /*margin-left: 40px;*/
+            font-size: 8em;
+            /*text-align: center;*/
         }
     </style>
 </head>
@@ -51,25 +54,60 @@
     </div>
     <div class="rollbtn">Roll</div>
     <script>
+        // selection of winner Message section
+        let winnerMsg = document.querySelector('.winnerMsg');
         // selection for dice random number box for player 1
-        let diceRandomNoForPlayer1 = document.querySelector('diceRandomNoForPlayer1');
+        let diceRandomNoForPlayer1 = document.querySelector('.diceRandomNoForPlayer1');
+        console.log(diceRandomNoForPlayer1);
         // selection for dice random number box for player 2
-        let diceRandomNoForPlayer2 = document.querySelector('diceRandomNoForPlayer2');
+        let diceRandomNoForPlayer2 = document.querySelector('.diceRandomNoForPlayer2');
+        console.log(diceRandomNoForPlayer2);
         // click on roll dice button
         let roll = document.querySelector('.rollbtn');
         // add click event listner to start the game
         roll.addEventListener('click',diceRoll);
-
+        // store random number here
+        let randomNo;
         // function for event listener
         function diceRoll(){
             // a random method will return in the range of 1 to 6
             let player1RandomNumber = diceRandomNumber(6);
             let player2RandomNumber = diceRandomNumber(6);
+
+            // insert player1RandomNumber(random number) in diceRandomNoForPlayer1 & 
+            // insert player2RandomNumber(random number) in diceRandomNoForPlayer2
+            diceRandomNoForPlayer1.innerHTML = '<b>'+player1RandomNumber+'</b>';
+            diceRandomNoForPlayer2.innerHTML = '<b>'+player2RandomNumber+'</b>';
+            console.log(player1RandomNumber);
+            console.log(player2RandomNumber);
+
+            // game winner logic
+            let winnerOfGame = gameWinnerLogic(player1RandomNumber, player2RandomNumber);
+            if(winnerOfGame == 'Player 1'){
+                winnerMsg.innerHTML = winnerOfGame + ' wins';
+            }else if(winnerOfGame == 'Player 2'){
+                winnerMsg.innerHTML = winnerOfGame + ' wins';
+            }else{
+                winnerMsg.innerHTML = 'Match '+winnerOfGame;
+            }
         }
 
         // function for call random method
         function diceRandomNumber(maxNumber){
-            return Math.floor(Math.random() * 6) + 1;
+            randomNo = Math.floor(Math.random() * 6) + 1;
+            let n = 9855 + randomNo;
+            return '&#'+n+';';
+
+        }
+        function gameWinnerLogic(player1Score, player2Score){
+            let winner = '';
+            if(player1Score > player2Score){
+                return 'Player 1';
+            }else if(player1Score < player2Score){
+                return 'Player 2';
+            }else {
+                return 'Draw';
+            }
         }
     </script>
 </body>
