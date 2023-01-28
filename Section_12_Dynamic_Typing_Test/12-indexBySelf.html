@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Typing Test</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="paragraphToType"></div>
+    <textarea rows="5" cols="50" disabled></textarea><br>
+    <button>Start</button>
+    <script>
+        // select button for start the game
+        let btn = document.querySelector('button');
+        // select the paragraph area
+        let paragraphArea = document.querySelector('.paragraphToType');
+        // one of the sentence from this array will show to user for typing
+        let message = ["Facing his greatest fear, he ate his first marshmallow.", "Jenny made the announcement that her baby was an alien.", "There's probably enough glass in my cupboard to build an undersea aquarium.", "Rock music approaches at high velocity.", "We will not allow you to bring your pet armadillo along."];
+
+        // flag for tracking start game is clicked or not
+        let flag=false;
+
+        // add click event listerner to start game button
+        btn.addEventListener('click',function(){
+            if(!flag){
+                startGame(event);
+                flag=true;
+            }else{
+                endGame(event);
+                flag=false;
+            }
+        });
+
+        // startGame function will execute after clicking on start button
+        function startGame(event){
+            console.log('start button clicked');
+            event.target.innerText = 'Done';
+            document.querySelector('textarea').disabled = false;
+            let sentence = message[findRandomIndex(message.length)];
+            paragraphArea.innerHTML = sentence;
+        }
+        // endGame function will execute after clicking on done button
+        function endGame(event){
+            document.querySelector('textarea').disabled = true;
+            //document.querySelector('textarea').innerText = ''; 
+            event.target.innerHTML = 'Start';
+        }
+        // return a random number
+        function findRandomIndex(num){
+            return Math.floor(Math.random() * num);
+        }
+    </script>
+</body>
+</html>
