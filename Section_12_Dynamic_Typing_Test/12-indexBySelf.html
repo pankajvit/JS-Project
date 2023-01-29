@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="paragraphToType"></div>
-    <textarea rows="5" cols="50" disabled></textarea><br>
+    <textarea class="userTypingArea" rows="5" cols="50" disabled></textarea><br>
     <button>Start</button>
     <script>
         // select button for start the game
@@ -26,11 +26,20 @@
 
         // add click event listerner to start game button
         btn.addEventListener('click',function(){
+            let sentence;
             if(!flag){
-                startGame(event);
+                // call startGame method and store the resulted sentence in randomGenratedSentence variable
+                randomGeneratedSentence = startGame(event);
+                // after getting random sentence then set it into paragraphArea referenced div
+                paragraphArea.innerHTML = randomGeneratedSentence;
                 flag=true;
             }else{
+                // endGame call after clicking on 'Done' button after typing the full sentence
                 endGame(event);
+                // fetch all user typed text
+                let userTypedSentence = document.querySelector('textarea').value;
+                // call gameResult function and pass system genrated sentence and user typed sentence
+                gameResult(randomGeneratedSentence, userTypedSentence);
                 flag=false;
             }
         });
@@ -41,7 +50,7 @@
             event.target.innerText = 'Done';
             document.querySelector('textarea').disabled = false;
             let sentence = message[findRandomIndex(message.length)];
-            paragraphArea.innerHTML = sentence;
+            return sentence;
         }
         // endGame function will execute after clicking on done button
         function endGame(event){
@@ -52,6 +61,23 @@
         // return a random number
         function findRandomIndex(num){
             return Math.floor(Math.random() * num);
+        }
+
+        // show gameResult after clicking on 'Done' button
+        function gameResult(randomGeneratedSentence, userTypedSentence){
+            console.log('inside gameResult function');
+            console.log(randomGeneratedSentence);
+            console.log(userTypedSentence);
+            let randomGeneratedSentenceArr = randomGeneratedSentence.split(" ");
+            let userTypedSentenceArr = userTypedSentence.split(" ");
+            let error = 0;
+            for(let i=0;i<randomGeneratedSentenceArr.length;i++){
+                if(!userTypedSentenceArr.includes(randomGeneratedSentenceArr[i])){
+                    error++;
+                }
+            }
+            console.log(error);
+            document.querySelector('.paragraphToType').innerHTML += "<br>"+ (randomGeneratedSentenceArr.length - error) + " correct out of "+ randomGeneratedSentenceArr.length;
         }
     </script>
 </body>
