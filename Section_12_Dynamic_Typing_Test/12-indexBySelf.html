@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Typing Test</title>
+    <title>Dynamic Typing Test by myself</title>
     <style>
 
     </style>
@@ -71,13 +71,12 @@
             let randomGeneratedSentenceArr = randomGeneratedSentence.split(" ");
             let userTypedSentenceArr = userTypedSentence.split(" ");
             let error = 0;
-            for(let i=0;i<randomGeneratedSentenceArr.length;i++){
-                if(!userTypedSentenceArr.includes(randomGeneratedSentenceArr[i])){
+            randomGeneratedSentenceArr.forEach(function(item,index){
+                if(item != userTypedSentenceArr[index]){
                     error++;
                 }
-            }
-            console.log(error);
-            document.querySelector('.paragraphToType').innerHTML += "<br>"+ (randomGeneratedSentenceArr.length - error) + " correct out of "+ randomGeneratedSentenceArr.length;
+            });
+            paragraphArea.innerHTML="<b>"+(randomGeneratedSentenceArr.length - error)+" correct out of "+ randomGeneratedSentenceArr.length+"</b>";
         }
     </script>
 </body>
