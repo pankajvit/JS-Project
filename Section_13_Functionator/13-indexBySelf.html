@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Functionator: App By Self</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .pathbox{
+            width: 80px;
+            height: 50px;
+            border: 1px solid rgb(221, 215, 215);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="pathArea"></div>
+    <div class="box">
+        <div>hello World</div>  
+    </div>
+    <script>
+        // selection of box for any manipulation
+        let box = document.querySelector('.box');
+
+        // selection of setting path area and show path for execution in this area
+        let pathArea = document.querySelector('.pathArea');
+        // array for storing arrow key value
+        let setPath = [];
+        // event listener on document
+        window.addEventListener('keydown',function(event){
+            console.log(event.key);
+            // if you press 'c or C' key then it will change the background color of box
+            if(event.key == 'c' || event.key == 'C'){
+                console.log(event.keyCode);
+                changeBoxBackgroundColor();
+            }
+            // if press any arrow key then I will add to setPath array for executing through that path 
+            if(event.key == 'ArrowUp' || event.key == 'ArrowDown' || event.key == 'ArrowLeft' || event.key == 'ArrowRight'){
+                console.log('you are inside arrow key condition');
+                addPath(event.key);
+            }
+        });
+
+        // change backgroundColor of box function
+        function changeBoxBackgroundColor(){
+            box.style.backgroundColor = "rgb("+randomNum(255)+","+randomNum(255)+","+randomNum(255)+")";
+        }
+
+        // pickup a random Number in the range of 0 to 255 for rgb value
+        function randomNum(num){
+            return Math.floor(Math.random() * num);
+        }
+
+        // addPath function definition for adding arrow key to setPath variable and show the path to user
+        function addPath(path){
+            if(path == 'ArrowUp'){
+                let pathBox = createABox('+up');
+                setPath.push("up");
+            }else if(path == 'ArrowDown'){
+                let pathBox = createABox('+down');
+                setPath.push("down");
+            }else if(path == 'ArrowLeft'){
+                let pathBox = createABox('+left');
+                setPath.push("left");
+            }else if(path == 'ArrowRight'){
+                let pathBox = createABox('+right');
+                setPath.push("right");
+            }
+        }
+        function createABox(path){
+            let pathbox = document.createElement("span");
+            pathbox.setAttribute("class","pathbox");
+            pathbox.innerText = path;
+            pathArea.appendChild(pathbox);
+        }
+    </script>
+</body>
+</html>
