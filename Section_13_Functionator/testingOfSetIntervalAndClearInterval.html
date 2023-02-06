@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setInterval & clearInterval</title>
+    <style>
+        .container{
+            height: 500px;
+            width: 500px;
+            position: relative;
+            background-color: yellow;
+        }
+        #animaterBox{
+            background-color: red;
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: 0px;
+        }
+        .clickBtn{
+            height: 20px;
+            width: 100px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid black;
+            text-align: center;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="clickBtn"><button>Click Me</button></div>
+    <div class="container">
+        <div id="animaterBox"></div>
+    </div>
+    <script>
+        let clickBtn = document.querySelector("#clickBtn");
+        clickBtn.addEventListener("click",startAnimate);
+        let animaterBox = document.querySelector("#animateBox");
+
+        clickBtn.addEventListener("click",startAnimate);
+
+        function startAnimate(){
+            let id = null;
+            const elem = document.getElementById("animaterBox");   
+            let pos = 0;
+            clearInterval(id);
+            id = setInterval(Animate, 5);
+            function Animate(){
+                if(pos == 450){
+                    clearInterval(Id);
+                }else {
+                    pos++;
+                    elem.style.left = pos + "px";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
