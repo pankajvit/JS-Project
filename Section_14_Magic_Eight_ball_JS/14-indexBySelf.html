@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Eight ball in JS</title>
+</head>
+<body>
+    <div>Ask Your Question</div>
+    <input type="text" placeholder="Question">
+    <button type="button">Ask</button>
+    <div class="message"></div>
+    <script>
+        let msg = document.querySelector(".message");
+        let btn = document.querySelector("button");
+        let question = document.querySelector("input");
+        let answerArray = ["It will work","Maybe maybe not","Probably Not","Highly Likely","I don't know"];
+        btn.addEventListener("click",function(){
+            let answer = answerArray[randomAnswer(answerArray)];
+            msg.innerHTML = question.value + " " + answer;
+        });
+
+        function randomAnswer(arr){
+            return Math.floor(Math.random() * arr.length);
+        }
+    </script>
+</body>
+</html>
