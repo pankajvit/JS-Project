@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JS Accordion by myself</title>
     <style>
-        .heading{
-            background-color: rgb(0, 0, 0);
-            padding: 10px;
-            font-size: 1.5em;
-            font-weight: 400;
-            color: white;
-            margin: 10px 0px;
-        }
-        .gray{
-            background-color: rgb(94, 89, 89);
-        }
-        .body{
-            border: 1px solid gainsboro;
-            padding: 5px;
-            margin: 5px 0px;
-        }
-        .hide{
-            display: none;
-        }
-        .show{
-            display: block;
-        }
+      .main .abody {
+        border: 1px solid gainsboro;
+        padding: 5px;
+        margin: 5px 0px;
+        display: none;
+      }
+      .main .ahead {
+        background-color: rgb(0, 0, 0);
+        padding: 10px;
+        font-size: 1.5em;
+        font-weight: 400;
+        color: white;
+        margin: 10px 0px;
+      }
+      .main .active .abody {
+        display: block;
+      }
+      .main .active .ahead {
+        background-color: #bbb;
+      }
     </style>
-</head>
-<body>
-    <div class="heading">
-        Panel 1 Head
-    </div>
-    <div class="body hide">
-        Panel 1 Body Content
-    </div>
-    <div class="heading">
-        Panel 2 Head
-    </div>
-    <div class="body hide">
-        Panel 2 Body Content
-    </div>
-    <div class="heading">
-        Panel 3 Head
-    </div>
-    <div class="body hide">
-        Panel 3 Body Content
-    </div>
-    <div class="heading">
-        Panel 4 Head
-    </div>
-    <div class="body hide">
-        Panel 4 Body Content
+  </head>
+  <body>
+    <div class="main">
+      <div class="panel">
+        <div class="ahead">Panel 1 Head</div>
+        <div class="abody">Panel 1 Body Content</div>
+      </div>
+      <div class="panel">
+        <div class="ahead">Panel 2 Head</div>
+        <div class="abody">Panel 2 Body Content</div>
+      </div>
+      <div class="panel">
+        <div class="ahead">Panel 3 Head</div>
+        <div class="abody">Panel 3 Body Content</div>
+      </div>
+      <div class="panel">
+        <div class="ahead">Panel 4 Head</div>
+        <div class="abody">Panel 4 Body Content</div>
+      </div>
     </div>
     <script>
-        let heading = document.querySelectorAll(".heading");
-        
+      let accordion = document.querySelectorAll(".panel");
 
-        for(let i=0;i<heading.length;i++){
-            heading[i].addEventListener("click",function(e){
-                heading[i].classList.toggle("gray");
-                heading[i].nextElementSibling.classList.toggle("show");
-            });
-        }
+      accordion.forEach(function (ele) {
+        ele.addEventListener("click", toggleEle);
+      });
+
+      function toggleEle(e) {
+        console.log(e.target.parentElement);
+        accordion.forEach(function (ele) {
+          console.log(ele);
+          if (e.target.parentElement == ele) {
+            ele.classList.toggle(".active");
+          } else {
+            ele.classList.remove(".active");
+          }
+        });
+      }
     </script>
-</body>
+  </body>
 </html>

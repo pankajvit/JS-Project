@@ -60,6 +60,7 @@
         console.log(e.target.parentElement);
         accordion.forEach(function (ele) {
           if (e.target.parentElement === ele) {
+            console.log(ele);
             ele.classList.toggle("active");
           } else {
             ele.classList.remove("active");
