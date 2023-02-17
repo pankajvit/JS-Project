@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16 - Combination guesser game</title>
+    <style>
+        .noOfGuess{
+            margin: 5px 0px;
+        }
+        .startBtn{
+            margin: 5px 0px;
+        }
+        .inputStyle{
+            width: 50px;
+            height: 40px;
+            font-size: 2em;
+        }
+        .green{
+            background-color: green;
+        }
+        .blue{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="noOfGuess">Guess Combo</div>
+    <button class="startBtn">Start</button>
+    <div class="instruct">Instruction: Guess the combo, blue means higher and red means lower. Try to solve it in as little guesses as possible</div>
+
+    <script>
+        // select start button
+        let startBtn = document.querySelector(".startBtn");
+        
+        // array to store system generated number
+        let randomNumbers = [];
+
+        // add click event to start button for starting the game
+        startBtn.addEventListener("click",function(event){
+            console.log(event.target.innerText);
+            // start game method will start the game
+            if(event.target.innerText == "Start"){
+                startGame();
+            }
+            else {
+               checkGameWinningCriteria(); 
+            }
+        });
+
+        function startGame(){
+            console.log("Inside startGame function");
+            // change the text from "start" to "check Combo"
+            startBtn.innerHTML = "check Combo";
+
+            // this loop will create 6 input which is type of number and inserted before "start" button 
+            for(let i=0;i<=6;i++){
+                let inputBox = document.createElement("input");
+                inputBox.setAttribute("type","number");
+                inputBox.setAttribute("min",0);
+                inputBox.setAttribute("max",9);
+                inputBox.setAttribute("value",0);
+                inputBox.setAttribute("class","inputStyle");
+                document.body.insertBefore(inputBox, startBtn);
+                let randNumber = generateRandomNumber(9);
+                randomNumbers.push(randNumber);
+            }
+            // add breakline tag <br> after creation of input tag so start button will come into new line
+            let breakLine = document.createElement("br");
+            document.body.insertBefore(breakLine, startBtn);
+            console.log(randomNumbers);
+        }
+
+        // generate randomNumber for guess to the user
+        function generateRandomNumber(num){
+            return Math.floor(Math.random() * num);
+        }
+        function checkGameWinningCriteria(){
+            console.log("Inside checkGameWinningCriteria function");
+            let inputNumberBox = document.querySelectorAll("input");
+            let userEnteredNumber = [];
+            for(let i=0;i<inputNumberBox.length;i++){
+                console.log(inputNumberBox[i].value);
+                userEnteredNumber.push(parseInt(inputNumberBox[i].value));
+            }
+            console.log(userEnteredNumber);
+            randomNumbers.forEach(function(ele,index){
+                if(ele == userEnteredNumber[index]){
+                    inputNumberBox[index].classList.add("green");
+                }else if(ele < userEnteredNumber[index]){
+                    inputNumberBox[index].classList.add("red");
+                }else if(ele > userEnteredNumber[index]){
+                    inputNumberBox[index].classList.add("blue");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
