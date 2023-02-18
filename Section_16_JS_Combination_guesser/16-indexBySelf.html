@@ -17,11 +17,14 @@
             height: 40px;
             font-size: 2em;
         }
-        .green{
-            background-color: green;
-        }
         .blue{
             background-color: blue;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
         }
     </style>
 </head>
@@ -33,9 +36,15 @@
     <script>
         // select start button
         let startBtn = document.querySelector(".startBtn");
-        
+
+        // select noOfGuess element
+        let guessCounterEle = document.querySelector(".noOfGuess");
+
         // array to store system generated number
         let randomNumbers = [];
+
+        // guessCounter variable will count how many times user guessed the game
+        let guessCounter = 0;
 
         // add click event to start button for starting the game
         startBtn.addEventListener("click",function(event){
@@ -44,8 +53,14 @@
             if(event.target.innerText == "Start"){
                 startGame();
             }
-            else {
+            else if(event.target.innerText == "check Combo") {
                checkGameWinningCriteria(); 
+            }else if(event.target.innerText == "Restart Game"){
+                let inputNumberBox = document.querySelectorAll("input");
+                for(let i=0;i<inputNumberBox.length;i++){
+                    inputNumberBox[i].remove();
+                }
+                startGame();
             }
         });
 
@@ -54,8 +69,9 @@
             // change the text from "start" to "check Combo"
             startBtn.innerHTML = "check Combo";
 
+            randomNumbers = [];
             // this loop will create 6 input which is type of number and inserted before "start" button 
-            for(let i=0;i<=6;i++){
+            for(let i=0;i<=5;i++){
                 let inputBox = document.createElement("input");
                 inputBox.setAttribute("type","number");
                 inputBox.setAttribute("min",0);
@@ -63,7 +79,8 @@
                 inputBox.setAttribute("value",0);
                 inputBox.setAttribute("class","inputStyle");
                 document.body.insertBefore(inputBox, startBtn);
-                let randNumber = generateRandomNumber(9);
+                let randNumber;
+                randNumber = generateRandomNumber(9);
                 randomNumbers.push(randNumber);
             }
             // add breakline tag <br> after creation of input tag so start button will come into new line
@@ -76,24 +93,39 @@
         function generateRandomNumber(num){
             return Math.floor(Math.random() * num);
         }
+
+        // checkWinningCriteria function for calculating logic of winnning the game
         function checkGameWinningCriteria(){
+            guessCounter++;
+            guessCounterEle.innerHTML = "Guesses"+guessCounter;
+            let isEveryCombinationMatched = 0;
             console.log("Inside checkGameWinningCriteria function");
             let inputNumberBox = document.querySelectorAll("input");
             let userEnteredNumber = [];
             for(let i=0;i<inputNumberBox.length;i++){
-                console.log(inputNumberBox[i].value);
+                //console.log(inputNumberBox[i].value);
                 userEnteredNumber.push(parseInt(inputNumberBox[i].value));
+                if(inputNumberBox[i].classList.contains('red') || inputNumberBox[i].classList.contains('green') || inputNumberBox[i].classList.contains('blue')){
+                    inputNumberBox[i].classList.remove("red","blue","green");
+                }
             }
-            console.log(userEnteredNumber);
+            //console.log(userEnteredNumber);
             randomNumbers.forEach(function(ele,index){
                 if(ele == userEnteredNumber[index]){
+                    console.log(ele);
+                    console.log(userEnteredNumber[index]);
                     inputNumberBox[index].classList.add("green");
+                    isEveryCombinationMatched++;
                 }else if(ele < userEnteredNumber[index]){
                     inputNumberBox[index].classList.add("red");
                 }else if(ele > userEnteredNumber[index]){
                     inputNumberBox[index].classList.add("blue");
                 }
             });
+            if(isEveryCombinationMatched == 6){
+                guessCounterEle.innerHTML = "You solved the combo in "+guessCounter+"guesses";
+                startBtn.innerText = "Restart Game";
+            }
         }
     </script>
 </body>
