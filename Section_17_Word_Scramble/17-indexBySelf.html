@@ -7,9 +7,42 @@
     <title>SelfVersion-WordScramble</title>
 </head>
 <body>
-    
+    <button type="button">Start</button>
     <script>
+        // select the "Start" button
+        const startbtn = document.querySelector("button");
+        
+        // add click event listener on startBtn
+        startbtn.addEventListener("click",function(){
+            let gamePlay = false;
 
+            if(!gamePlay){
+                gamePlay = true;
+                startGame();
+            }
+        });
+
+        function startGame(){
+            let wordsArray = ["new","document","javascript","course","html","development","coding"];
+            let choosedWord = wordsArray[randomchoose(wordsArray)];
+            let scrambleWord = makeScrambleWord(choosedWord);
+            console.log(choosedWord);
+            console.log(scrambleWord);
+        }
+
+        function makeScrambleWord(word){
+            let wordArray = word.split('');
+            let scrambleWord = [];
+            let i = wordArray.length;
+            while(wordArray.length > 0){
+                let character = wordArray.splice(Math.floor(Math.random() * i), 1);
+                scrambleWord.push(character);
+            }
+            return scrambleWord.join();
+        }
+        function randomchoose(arr){
+            return Math.floor(Math.random() * arr.length);
+        }
     </script>
 </body>
 </html>
