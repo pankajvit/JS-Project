@@ -7,38 +7,84 @@
     <title>SelfVersion-WordScramble</title>
 </head>
 <body>
-    <button type="button">Start</button>
+    <div class="gameArea"></div>
+    <span><button type="button">Start</button></span>
     <script>
+        // select gameArea for playing game
+        let gameArea = document.querySelector(".gameArea");
+
         // select the "Start" button
         const startbtn = document.querySelector("button");
         
+        // collection of words for choose from
+        let wordsArray = ["new","document","javascript","course","html","development","coding"];
+
+        // variable for store choosed word without scramble
+        let choosedWord;
+
+        // variable for store scamble word 
+        let scrambleWord;
+
+        // count the guesses of the user
+        let noOfGuess = 0;
+        let gamePlay = false;
         // add click event listener on startBtn
         startbtn.addEventListener("click",function(){
-            let gamePlay = false;
-
             if(!gamePlay){
                 gamePlay = true;
-                startGame();
+                gameArea.innerHTML = "";
+                startGame(event);
+            }else{
+                console.log("check winning condition");
+                let inputedText = document.querySelector("input").value;
+                console.log(inputedText);
+                if(choosedWord == inputedText){
+                    console.log("inside chooseWord == inputedText condition");
+                    let finalMessageArea = document.querySelector(".gameArea div");
+                    console.log(finalMessageArea);
+                    finalMessageArea.innerHTML = "Correct it was "+choosedWord+" it took "+noOfGuess+" guesses.";
+                    gamePlay = false;
+                }else{
+                    noOfGuess++;
+                    scrambleWord = makeScrambleWord(scrambleWord);
+                    document.querySelector(".gameArea div").innerHTML = "Guesses :"+noOfGuess+"<br>"+ "Wrong - "+scrambleWord;
+                    startbtn.innerHTML="Start";
+                }
             }
         });
 
-        function startGame(){
-            let wordsArray = ["new","document","javascript","course","html","development","coding"];
-            let choosedWord = wordsArray[randomchoose(wordsArray)];
-            let scrambleWord = makeScrambleWord(choosedWord);
+        function startGame(event){
+            choosedWord = wordsArray[randomchoose(wordsArray)];
+            scrambleWord = makeScrambleWord(choosedWord);
+            let scrambleWordArea = document.createElement("div");
+            scrambleWordArea.textContent = scrambleWord;
+            gameArea.appendChild(scrambleWordArea);
+
+            let inputBox = document.createElement("input");
+            inputBox.setAttribute("type","text");
+            inputBox.setAttribute("required",true);
+            inputBox.style.width = "150px";
+            inputBox.style.marginTop = "20px";
+            inputBox.style.marginBottom = "20px";
+            inputBox.style.display = "inline-block";
+            gameArea.appendChild(inputBox);
+            event.target.innerText = "Guess";
             console.log(choosedWord);
             console.log(scrambleWord);
+
         }
 
         function makeScrambleWord(word){
             let wordArray = word.split('');
-            let scrambleWord = [];
+            let scrambleWordChar = [];
             let i = wordArray.length;
             while(wordArray.length > 0){
                 let character = wordArray.splice(Math.floor(Math.random() * i), 1);
-                scrambleWord.push(character);
+                scrambleWordChar.push(character);
+                i--;
             }
-            return scrambleWord.join();
+            let scrambleWord = scrambleWordChar.join().replace(/,/g,'');
+            return scrambleWord;
         }
         function randomchoose(arr){
             return Math.floor(Math.random() * arr.length);
