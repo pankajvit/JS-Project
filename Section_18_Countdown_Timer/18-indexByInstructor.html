@@ -23,20 +23,31 @@
 
         endDate.addEventListener("change",function(e){
             e.preventDefault();
-            console.log(endDate.value);
+            //console.log(endDate.value);
             const temp = new Date(endDate.value);
-            console.log(temp);
+            //console.log(temp);
+            //const fiveHoursInMillis = (6 * 60 * 60 * 1000) + (30 * 60 * 1000);
+            //const exactTime = new Date();
+            //exactTime.setTime(temp.getTime() + fiveHoursInMillis)
             startClock(temp);
         })
 
         function startClock(d){
-            console.log(d);
-            console.log(Date.parse(d));
+            console.log(timeLeft(d));
         }
 
         function timeLeft(d){
-            
+            let currentDate = new Date();
+            //console.log(Date.parse(d));
+            //console.log(currentDate);
+            //console.log(Date.parse(currentDate));
+
+            let t = Date.parse(d) - Date.parse(currentDate);
+            //console.log(t);
+            return t;
         }
+
+
     </script>
 </body>
 </html>
