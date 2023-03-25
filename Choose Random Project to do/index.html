@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Random Number</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Choose Random Project to do</legend>
+        <input type="number" name="sNumber" placeholder="Enter the Starting Number"/>
+        <input type="number" name="eNumber" placeholder="Enter the Ending Number"/>
+        <div>Choosed Number : <span class="randomNo"></span></div> <br><br>
+        <button> Choose any number</button>
+    </fieldset>
+    <script>
+        document.querySelector("button").addEventListener('click', function(){
+            let startingNumber = document.querySelector("input[name='sNumber']").value;
+            let endingNumber = document.querySelector("input[name='eNumber']").value;
+            let selectedNumber = randomIntFromInterval(startingNumber, endingNumber);
+            document.querySelector('.randomNo').innerHTML = selectedNumber;
+        });
+
+        function randomIntFromInterval(min, max) { // min and max included 
+            return Math.floor(Math.random() * (max - min + 1) + min) + 1;
+        }
+
+          
+    </script>
+</body>
+</html>

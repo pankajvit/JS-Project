@@ -1,7 +1,30 @@
 <html>
   <head>
     <title>InstructorVersion-CountdownTimer</title>
-    <style></style>
+    <style>
+      .clock{
+        background-color: blue;
+        width: 600px;
+        text-align: center;
+        color: white;
+        font-size: 1em;
+      }
+      .clock > span{
+        padding: 10px;
+        border-radius: 10px;
+        background-color: black;
+      }
+      .clock > span > span{
+        padding: 5px;
+        border-radius: 10px;
+        background-color: red;
+      }
+      input{
+        padding: 15px;
+        margin: 20px;
+        font-size: 1.5em;
+      }
+    </style>
   </head>
 
   <body>
@@ -17,30 +40,48 @@
     <script>
       const endDate = document.querySelector("input[name='endDate']");
       const clock = document.querySelector(".clock");
-
+      let timeInterval;
+      let timeStop = true;
+      const savedValue = localStorage.getItem("countdown") || false;
+      if(savedValue){
+        startClock(savedValue);
+        let inputValue = new Date(savedValue);
+        console.log(inputValue);
+        endDate.valueAsDate = inputValue;
+      }
       endDate.addEventListener("change", function (e) {
         e.preventDefault();
-        //console.log(endDate.value);
+        clearInterval(timeInterval);
         const temp = new Date(endDate.value);
-        //console.log(temp);
-        //const fiveHoursInMillis = (6 * 60 * 60 * 1000) + (30 * 60 * 1000);
-        //const exactTime = new Date();
-        //exactTime.setTime(temp.getTime() - fiveHoursInMillis)
+        localStorage.setItem("countdown",temp);
         startClock(temp);
+        timeStop = true;
       });
 
       function startClock(d) {
-        let tl = timeLeft(d);
-        console.log(tl.days);
+        function updateCounter(){
+          let tl = timeLeft(d);
+          if(tl.total <= 0){
+            timeStop = false;
+          }
+          console.log(tl.days);
 
-        for(let pro in tl){
+          for(let pro in tl){
             console.log(pro, tl[pro]);
             let el = document.querySelector("."+pro);
             if(el){
                 console.log(el);
                 el.innerHTML = tl[pro];
             }
+          }
         }
+        updateCounter();
+        if(timeStop){
+          timeInterval=setInterval(updateCounter,1000);
+        }else{
+          clearInterval(timeInterval);
+        }
+        
       }
 
       function timeLeft(d) {
