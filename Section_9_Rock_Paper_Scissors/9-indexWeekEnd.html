@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeekendSelection-Rock Vs Paper Vs Scissors</title>
+</head>
+<body>
+    <div class="message"></div>
+    <button>Rock</button>
+    <button>Paper</button>
+    <button>Scissors</button>
+
+    <script>
+        // selection of all buttons
+        let buttons = document.querySelectorAll('button');
+
+        // selection of message area
+        let msg = document.querySelector('.message');
+
+        // avilable all modes to choose in game
+        let gameModes = ['Rock','Paper','Scissors'];
+
+        // store the score of computer and player
+        let playerScore = 0;
+        let computerScore = 0;
+        // add click event to every button
+        buttons.forEach(function(item){
+            item.addEventListener('click',gameResult);
+        });
+
+        // whenever any button clicked this function will run
+        function gameResult(event){
+
+            let winnerMessage = '';
+            //store the user clicked button text
+            let userClickedValue = event.target.innerText;
+            console.log(userClickedValue);
+
+            // computer random selected mode
+            let computerSelectedMode = randomSelectionOfGame(gameModes);
+            console.log(computerSelectedMode);
+
+            if(userClickedValue === 'Rock'){
+                if(computerSelectedMode === 'Rock'){
+                    winnerMessage = 'Draw results in a tie match!';
+                }else if(computerSelectedMode === 'Paper'){
+                    winnerMessage = 'Computer wins!';
+                    computerScore++;
+                }else if(computerSelectedMode === 'Scissors'){
+                    winnerMessage = 'Player Wins!';
+                    playerScore++;
+                }
+            }else if(userClickedValue === 'Paper'){
+                if(computerSelectedMode === 'Rock'){
+                    winnerMessage = 'Player Wins!';
+                    playerScore++;
+                }else if(computerSelectedMode === 'Paper'){
+                    winnerMessage = 'Draw results in a tie match!';
+                }else if(computerSelectedMode === 'Scissors'){
+                    winnerMessage = 'Computer wins!';
+                    computerScore++;
+                }
+            }else if(userClickedValue === 'Scissors'){
+                if(computerSelectedMode === 'Rock'){
+                    winnerMessage = 'Computer wins!';
+                    computerScore++;
+                }else if(computerSelectedMode === 'Paper'){
+                    winnerMessage = 'Player Wins!';
+                    playerScore++;
+                }else if(computerSelectedMode === 'Scissors'){
+                    winnerMessage = 'Draw results in a tie match!';
+                }
+            }
+            msg.innerHTML = 'Player['+playerScore+'] Computer['+computerScore+']<br>';
+            msg.innerHTML += userClickedValue + ' Vs ' + computerSelectedMode + '<br>';
+            msg.innerHTML += '<b>'+winnerMessage+'</b>'+'<br>';
+            
+        }
+
+        function randomSelectionOfGame(gameModes){
+            let selectedMode = gameModes[Math.floor(Math.random() * gameModes.length)];
+            return selectedMode;
+        }
+    </script>
+</body>
+</html>
