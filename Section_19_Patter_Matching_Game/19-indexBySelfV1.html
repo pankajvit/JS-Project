@@ -30,6 +30,20 @@
             padding: 5px;
             margin-left: 10px;
         }
+        /*
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .yellow{
+            background-color: yellow;
+        }
+        */
     </style>
 </head>
 <body>
@@ -44,8 +58,53 @@
         </div>
     </div>
     <button>Start</button>
+    <div>
+        <h1>
+            Game Rule
+        </h1>
+        <ul>
+            <li>Click on start button</li>
+            <li>It will select one box and fill the any color from red, green, blue or yellow and after 10milisecond background color will be disappear.</li>
+            <li>Next, it will select one box and repeat as step 1 for all boxes</li>
+            <li>Now, you have to guess the sequence as appeared the color of the box.</li>
+            <li>if you guess the sequence right then you will win the game.</li>
+        </ul>
+    </div>
     <script>
+        let startButton = document.querySelector('button');
+        startButton.addEventListener('click',startTheGame);
 
+        let seqNumberVsElement = {
+        };
+        let oneRandomBoxSelection;
+        let allBox = document.querySelectorAll('.box');
+        let colors = ["red","green","blue","yellow"];
+        let arrOfEle = [];
+        function startTheGame(){
+            console.log(allBox);
+            console.log(allBox.length);
+            for(let index=0;index<allBox.length;index++){
+                let randomIndex = randomNumber(allBox.length);
+                oneRandomBoxSelection = allBox[randomIndex];
+                console.log(oneRandomBoxSelection);
+                arrOfEle.push(oneRandomBoxSelection);
+                oneRandomBoxSelection.style.backgroundColor = colors[randomNumber(colors.length)];
+                oneRandomBoxSelection.setAttribute("seq",index.toString());
+                setTimeout(disAppearColor,500);
+                //allBox.splice(randomIndex,1);
+            }
+        }
+
+        function disAppearColor(){
+            console.log('I am inside disappearcolor function');
+            //console.log(ele);
+            let ele = arrOfEle.shift();
+            ele.style.backgroundColor = "white";
+        }
+        // select any random number
+        function randomNumber(num){
+            return Math.floor(Math.random()*num);
+        }
     </script>
 </body>
 </html>
