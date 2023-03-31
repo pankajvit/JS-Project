@@ -30,20 +30,6 @@
             padding: 5px;
             margin-left: 10px;
         }
-        /*
-        .red{
-            background-color: red;
-        }
-        .green{
-            background-color: green;
-        }
-        .blue{
-            background-color: blue;
-        }
-        .yellow{
-            background-color: yellow;
-        }
-        */
     </style>
 </head>
 <body>
@@ -74,32 +60,37 @@
         let startButton = document.querySelector('button');
         startButton.addEventListener('click',startTheGame);
 
-        let seqNumberVsElement = {
-        };
         let oneRandomBoxSelection;
         let allBox = document.querySelectorAll('.box');
+        let allBoxArr = Array.from(allBox);
+        //console.log(allBoxArr);
         let colors = ["red","green","blue","yellow"];
-        let arrOfEle = [];
+        //let arrOfEle = [];
         function startTheGame(){
-            console.log(allBox);
-            console.log(allBox.length);
-            for(let index=0;index<allBox.length;index++){
-                let randomIndex = randomNumber(allBox.length);
-                oneRandomBoxSelection = allBox[randomIndex];
+            //console.log(allBox.length);
+            for(let index=0;index<allBoxArr.length;index++){
+                let choosedIndex = [];
+                let randomIndex = randomNumber(allBoxArr.length);
+                if(choosedIndex.includes(randomIndex)){
+                   continue;
+                }
+                choosedIndex.push(randomIndex);
+                console.log(randomIndex);
+                oneRandomBoxSelection = allBoxArr[randomIndex];
                 console.log(oneRandomBoxSelection);
-                arrOfEle.push(oneRandomBoxSelection);
+                //arrOfEle.push(oneRandomBoxSelection);
                 oneRandomBoxSelection.style.backgroundColor = colors[randomNumber(colors.length)];
-                oneRandomBoxSelection.setAttribute("seq",index.toString());
-                setTimeout(disAppearColor,500);
-                //allBox.splice(randomIndex,1);
+                //oneRandomBoxSelection.setAttribute("seq",index.toString());
+                //setTimeout(disAppearColor,500);
+                //allBoxArr.splice(randomIndex,1);
             }
         }
 
         function disAppearColor(){
             console.log('I am inside disappearcolor function');
             //console.log(ele);
-            let ele = arrOfEle.shift();
-            ele.style.backgroundColor = "white";
+            //let ele = arrOfEle.shift();
+            oneRandomBoxSelection.style.backgroundColor = "white";
         }
         // select any random number
         function randomNumber(num){
