@@ -64,48 +64,26 @@
         let allBox = document.querySelectorAll('.box');
         let allBoxArr = Array.from(allBox);
         let colors = ["red","green","blue","yellow"];
+        let generatedNumberArr = [];
         //let arrOfEle = [];
+        let i = 0; //  set your counter to 1
         function startTheGame(){
-
-            var i = 1;                  //  set your counter to 1
-
-            function myLoop() {         //  create a loop function
-                setTimeout(function() {   //  call a 3s setTimeout when the loop is called
-                    console.log('hello');   //  your code here
-                    i++;                    //  increment the counter
-                    if (i < 10) {           //  if the counter < 10, call the loop function
-                    myLoop();             //  ..  again which will trigger another 
-                    }                       //  ..  setTimeout()
-                }, 3000)
-            }
-            myLoop();
-            //console.log(allBox.length);
-            let choosedIndex =[];
-            let counter = 0;
-            //debugger;
-            for(let index=0;;index++){
+            setTimeout(function() { 
                 let randomIndex = randomNumber(allBoxArr.length);
-                if(choosedIndex.includes(randomIndex) && choosedIndex.length < 4){
-                   continue;
+                /*if (choosedIndex.includes(randomIndex) && choosedIndex.length < 4) {
+                    startTheGame();
                 }
-                counter++;
-                choosedIndex.push(randomIndex);
-                //console.log(choosedIndex);
-                //console.log(randomIndex);
-                oneRandomBoxSelection = allBoxArr[randomIndex];
-                //arrOfEle.push(oneRandomBoxSelection);
-                oneRandomBoxSelection.style.backgroundColor = colors[randomNumber(colors.length)];
-                oneRandomBoxSelection.setAttribute("seq",counter.toString());
-                console.log(oneRandomBoxSelection);
-                /*setTimeout(function(){
-                    index++;
-                    oneRandomBoxSelection.style.backgroundColor = "White";
-                },500);
                 */
-                if(choosedIndex.length == 4){
-                    break;
-                }
-            }
+                //choosedIndex.push(randomIndex);
+                
+                oneRandomBoxSelection = allBoxArr[randomIndex];
+                oneRandomBoxSelection.style.backgroundColor = colors[randomNumber(colors.length)];
+                console.log(oneRandomBoxSelection);
+                i++;                    //  increment the counter
+                if (choosedIndex.length < 4) {           //  if the counter < 10, call the loop function
+                 startTheGame();            //  ..  again which will trigger another 
+                }                       //  ..  setTimeout()
+            }, 3000);
         }
 
         function disAppearColor(){
@@ -115,8 +93,13 @@
             oneRandomBoxSelection.style.backgroundColor = "white";
         }
         // select any random number
+        let generatedNumber;
         function randomNumber(num){
-            return Math.floor(Math.random()*num);
+            generatedNumber = Math.floor(Math.random()*num);
+            if(generatedNumberArr.includes(generatedNumber)){
+                randomNumber(allBoxArr.length);
+            }
+            return generatedNumber;
         }
     </script>
 </body>
