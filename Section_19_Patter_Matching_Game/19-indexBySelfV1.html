@@ -63,26 +63,35 @@
         let oneRandomBoxSelection;
         let allBox = document.querySelectorAll('.box');
         let allBoxArr = Array.from(allBox);
-        //console.log(allBoxArr);
         let colors = ["red","green","blue","yellow"];
         //let arrOfEle = [];
         function startTheGame(){
             //console.log(allBox.length);
-            for(let index=0;index<allBoxArr.length;index++){
-                let choosedIndex = [];
+            let choosedIndex =[];
+            let counter = 0;
+            //debugger;
+            for(let index=0;;index++){
                 let randomIndex = randomNumber(allBoxArr.length);
-                if(choosedIndex.includes(randomIndex)){
+                if(choosedIndex.includes(randomIndex) && choosedIndex.length < 4){
                    continue;
                 }
+                counter++;
                 choosedIndex.push(randomIndex);
-                console.log(randomIndex);
+                //console.log(choosedIndex);
+                //console.log(randomIndex);
                 oneRandomBoxSelection = allBoxArr[randomIndex];
-                console.log(oneRandomBoxSelection);
                 //arrOfEle.push(oneRandomBoxSelection);
                 oneRandomBoxSelection.style.backgroundColor = colors[randomNumber(colors.length)];
-                //oneRandomBoxSelection.setAttribute("seq",index.toString());
-                //setTimeout(disAppearColor,500);
-                //allBoxArr.splice(randomIndex,1);
+                oneRandomBoxSelection.setAttribute("seq",counter.toString());
+                console.log(oneRandomBoxSelection);
+                /*setTimeout(function(){
+                    index++;
+                    oneRandomBoxSelection.style.backgroundColor = "White";
+                },500);
+                */
+                if(choosedIndex.length == 4){
+                    break;
+                }
             }
         }
 
