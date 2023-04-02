@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Toss Application on weekend</title>
+</head>
+<body>
+    <fieldset>
+        <legend>Player Ground Area</legend>
+        <div class="message">Select either Heads or Tails</div>
+        <button>Heads</button>
+        <button>Tails</button>
+    </fieldset>
+    <script>
+
+        // selection the button element
+        const buttons = document.querySelectorAll('button');
+
+        // select the message box for manipulation or showing game result
+        const msgArea = document.querySelector('.message');
+
+        // array for posssibility for computer selection
+        let gameModeToSelect = ['Heads','Tails'];
+
+        // add click event listener to both button Heads & Tails
+        buttons.forEach(function(item){
+            item.addEventListener('click',startGame);
+        });
+
+        let playerScore = 0;
+        let computerScore = 0;
+        // after click on any button "Heads" or "Tails" this function will run
+        function startGame(event){
+            console.log('clicked',event.target);
+            let playerSelectedMode = event.target.innerText;
+            console.log(playerSelectedMode);
+            let computerSelectionMode = gameModeToSelect[randomSelection(gameModeToSelect.length)];
+            console.log(computerSelectionMode);
+            msgArea.innerHTML = 'Computer Selected : '+computerSelectionMode;
+            msgArea.innerHTML += '<br>Player Selected : '+playerSelectedMode;
+            if(playerSelectedMode == computerSelectionMode){
+                msgArea.innerHTML += '<br>Player Wins';
+                playerScore++;
+            }else{
+                msgArea.innerHTML += '<br>Computer Wins';
+                computerScore++;
+            }
+            msgArea.innerHTML += '<br>Player '+playerScore+' Computer '+computerScore;
+        }
+
+        // generate a random number
+        function randomSelection(num){
+            return Math.floor(Math.random() * num);
+        }
+    </script>
+</body>
+</html>
