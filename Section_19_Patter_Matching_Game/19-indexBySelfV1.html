@@ -35,12 +35,12 @@
 <body>
     <div class="container">
         <div class="row row1">
-            <div class="box box1"></div>
-            <div class="box box2"></div>
+            <div class="box box1" seq="0"></div>
+            <div class="box box2" seq="1"></div>
         </div>
         <div class="row row2">
-            <div class="box box3"></div>
-            <div class="box box4"></div>
+            <div class="box box3" seq="2"></div>
+            <div class="box box4" seq="3"></div>
         </div>
     </div>
     <button>Start</button>
@@ -64,42 +64,74 @@
         let allBox = document.querySelectorAll('.box');
         let allBoxArr = Array.from(allBox);
         let colors = ["red","green","blue","yellow"];
-        let generatedNumberArr = [];
         //let arrOfEle = [];
-        let i = 0; //  set your counter to 1
+        let i = 0;
+        let previousSelectIndex;
+        let previousSelectedBox;
+        let isThisFirstSelection = true;
+        let sequenceMadeByComputer = [];
         function startTheGame(){
             setTimeout(function() { 
-                let randomIndex = randomNumber(allBoxArr.length);
-                /*if (choosedIndex.includes(randomIndex) && choosedIndex.length < 4) {
-                    startTheGame();
+                if(!isThisFirstSelection){
+                    previousSelectedBox = allBoxArr[previousSelectIndex];
+                    previousSelectedBox.style.backgroundColor = 'white';
                 }
-                */
-                //choosedIndex.push(randomIndex);
-                
+                isThisFirstSelection = false;
+                let randomIndex = randomNumberForEleSelection(allBoxArr.length);
+                sequenceMadeByComputer.push(randomIndex);
+                console.log(randomIndex);
+                previousSelectIndex = randomIndex;
                 oneRandomBoxSelection = allBoxArr[randomIndex];
                 oneRandomBoxSelection.style.backgroundColor = colors[randomNumber(colors.length)];
-                console.log(oneRandomBoxSelection);
-                i++;                    //  increment the counter
-                if (choosedIndex.length < 4) {           //  if the counter < 10, call the loop function
-                 startTheGame();            //  ..  again which will trigger another 
-                }                       //  ..  setTimeout()
-            }, 3000);
+                console.log(oneRandomBoxSelection);     
+                i++; 
+                if(i == 4){
+                    setTimeout(function(){
+                        previousSelectedBox = allBoxArr[previousSelectIndex];
+                        previousSelectedBox.style.backgroundColor = 'white';
+                        console.log('Computer Made this sequence',sequenceMadeByComputer);
+                    }, 1000);
+                } 
+                if (i < 4) {
+                 startTheGame();            
+                } 
+            }, 1000);
         }
 
-        function disAppearColor(){
-            console.log('I am inside disappearcolor function');
-            //console.log(ele);
-            //let ele = arrOfEle.shift();
-            oneRandomBoxSelection.style.backgroundColor = "white";
-        }
         // select any random number
         let generatedNumber;
-        function randomNumber(num){
-            generatedNumber = Math.floor(Math.random()*num);
-            if(generatedNumberArr.includes(generatedNumber)){
-                randomNumber(allBoxArr.length);
-            }
+        let generatedNumberArr = [];
+        function randomNumberForEleSelection(num){
+            generatedNumber = Math.floor(Math.random() * num);
+            while(generatedNumberArr.includes(generatedNumber)) {
+                generatedNumber = Math.floor(Math.random() * num);
+            }         
+            generatedNumberArr.push(generatedNumber);
             return generatedNumber;
+        }
+        
+
+        function randomNumber(num){
+            return Math.floor(Math.random() * num);
+        }
+
+        allBox.forEach(function(item){
+            item.addEventListener('click',gameResult);
+        })
+
+        let clickCounter = 0;
+        let userClickedSequence = [];
+        function gameResult(Event){
+            console.log(Event.target);
+            let clickedBox = Event.target;
+            console.log(clickedBox.getAttribute("seq"));
+            userClickedSequence.push(Number(Event.target.getAttribute("seq")));
+            clickCounter++;
+            if(clickCounter == 4){
+                console.log(userClickedSequence);
+                alert('you win');
+                //location.reload();
+            }
         }
     </script>
 </body>
