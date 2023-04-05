@@ -129,10 +129,24 @@
             clickCounter++;
             if(clickCounter == 4){
                 console.log(userClickedSequence);
-                alert('you win');
-                //location.reload();
+                let finalGameResult = sequenceMadeByComputer.every(function(num, index){
+                    if(num == userClickedSequence[index]){
+                        return true;
+                    }
+                    return false;
+                });
+
+                if(finalGameResult == true){
+                    alert('You win');
+                }else {
+                    alert('You loose');
+                }
+                //alert('you win');
+                location.reload();
             }
         }
+
+        
     </script>
 </body>
 </html>
