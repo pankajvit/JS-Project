@@ -11,6 +11,7 @@
         <div class="main page">
             <div class="starter">
                 <a class="btn newGame">New Game</a>
+                <a class="btn newGame2">New Game 2</a>
             </div>
         </div>
         <div class="game page">
@@ -19,13 +20,104 @@
     <script>
         const playArea = {};
         const player = {};
-
+        let gameObj;
+        /*
+        const data = {
+            "data": [
+              {
+                "icon": "&#8902;",
+                "value": 10
+              },
+              {
+                "icon": "&#10031;",
+                "value": 30
+              },
+              {
+                "icon": "&#10036;",
+                "value": 50
+              },
+              {
+                "icon": "&#10042;",
+                "value": 70
+              },
+              {
+                "icon": "&#10084;",
+                "value": 75
+              },
+              {
+                "icon": "&#9813;",
+                "value": 50
+              },
+              {
+                "icon": "&#9822;",
+                "value": 60
+              },
+              {
+                "icon": "&#9924;",
+                "value": 40
+              },
+              {
+                "icon": "&#9971;",
+                "value": 100
+              },
+              {
+                "icon": "&#9729;",
+                "value": -50
+              },
+              {
+                "icon": "&#9785;",
+                "value": -100
+              },
+              {
+                "icon": "&#9760;",
+                "value": -250
+              },
+              {
+                "icon": "&#9791;",
+                "value": -20
+              }
+            ]
+        }
+        */
         playArea.stats = document.querySelector(".stats");
         playArea.main = document.querySelector(".main");
         playArea.game = document.querySelector(".main");
         playArea.btns = Array.from(document.querySelectorAll(".btn"));
         playArea.page = Array.from(document.querySelectorAll(".page"));
         console.log(playArea);
+        document.addEventListener("DOMContentLoaded",getData);
+
+
+        player.score = 0;
+        player.items = 3;
+
+        playArea.btns.forEach(function(item){
+            console.log(item);
+            item.addEventListener('click',handleBtn);
+        });
+
+        function getData(){
+            console.log("DOM loaded");
+            fetch("http://discoveryvip.com/shared/json.php?f=game").then(function(rep){
+              return rep.json();
+            }).then(function(data){
+              console.log(data);
+              gameObj = data.data;
+              console.log(gameObj);
+            })
+        }
+
+        function handleBtn(e){
+            console.log(e.target);
+            if(e.target.classList.contains("newGame")){
+                console.log("Yes");
+                startGame();                
+            }
+        }
+
+        function startGame(){
+            console.log("start");
+        }
     </script>
 </body>
 </html>
