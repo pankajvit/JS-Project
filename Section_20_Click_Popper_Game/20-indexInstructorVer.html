@@ -37,7 +37,13 @@
         .game{
           border: 1px solid black;
         }
-
+        .active{
+          border: 1px solid blue;
+          background-color: aquamarine;
+          color: black;
+          box-shadow: 5px 5px #555;
+          cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +87,7 @@
         }
 
         function buildBoard(){
-          debugger;
+          //debugger;
           let rows = 4;
           let cols = 4;
           let cnt = 0;
@@ -115,7 +121,61 @@
             playArea.main.classList.remove("visible");
             playArea.game.classList.add("visible");
             console.log("start");
+            player.gameOver = false;
+            startPop();
         }
+
+        function randomUp(){
+          const pops = document.querySelectorAll('.pop');
+          const idx = Math.floor(Math.random() * pops.length);
+          if(pops[idx].cnt == playArea.last){
+            return randomUp();
+          }
+          playArea.last = pops[idx].cnt;
+          return pops[idx];
+        }
+        function startPop(){
+          let newPop = randomUp();
+          console.log(newPop);
+          newPop.classList.add("active");
+          newPop.addEventListener("click", hitPop);
+          const time = Math.round(Math.random() * (1500) + 750);
+          const val = Math.floor(Math.random() * gameObj.length);
+          newPop.old = newPop.innerText;
+          newPop.v = gameObj[val].value;
+          newPop.innerHTML = gameObj[val].icon + "<br>" + gameObj[val].value;
+          playArea.inPlay = setTimeout(function(){
+            newPop.classList.remove("active");
+            newPop.removeEventListener("click", hitPop);
+            newPop.innerText = newPop.old;
+            if(!player.gameOver){
+              startPop();
+            }
+          }, time); 
+        }
+
+        function hitPop(e){
+          console.log(e.target.cnt);
+          console.log(e.target.v);
+          let newPop = e.target;
+          player.score = player.score + newPop.v;
+          newPop.classList.remove("active");
+          newPop.removeEventListener("click", hitPop);
+          newPop.innerText = newPop.old;
+          clearTimeout(playArea.inPlay);
+          if(!player.gameOver){
+            startPop();
+          }
+        }
+
+
+
+
+
+
+
+
+
     </script>
 </body>
 </html>
