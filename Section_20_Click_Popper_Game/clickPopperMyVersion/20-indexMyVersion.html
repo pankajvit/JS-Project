@@ -5,8 +5,103 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyVersion-ClickPopperGame</title>
+    <style>
+        .scoreArea{
+            background-color: black;
+            color: white;
+            text-align: center;
+            height: 50px;
+            font-size: 2em;
+        }
+        .btn{
+            background-color: blue;
+            color: white;
+            height: 50px;
+            box-shadow: 4px 1px black;
+            display: inline-block;
+            cursor: pointer;
+            width: 110px;
+            text-align: center;
+            line-height: 50px;
+            margin-top: 20px;
+        }
+        .visible{
+            display: inline-block;
+        }
+        .hide{
+            display: none;
+        }
+        .playArea{
+            width: 406px;
+            height: 406px;
+            border: 1px solid black;
+            margin: auto;
+        }
+        .pop {
+            border: 1px solid #ddd;
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            color: #ddd;
+            font-size: 2em;
+            font-family: fantasy;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="scoreArea">Press button to Start</div>
+    <div class="gameArea">
+        <div class="btn">New Game</div>
+        <div class="playArea hide"></div>
+    </div>
+    <script>
+        const scoreArea = document.querySelector('.scoreArea');
+        const newGameBtn = document.querySelector('.btn');
+        const playArea = document.querySelector('.playArea');
+        let gameObj = {};
+
+        newGameBtn.addEventListener('click',function(){
+            this.style.display = 'none';
+            startGame();
+        });
+
+        let cnt = 1;
+        function startGame(){
+            playArea.classList.remove('hide');
+            for(let i=0;i<4;i++){
+                for(let j=0;j<4;j++){
+                    let pop = createPop();
+                    pop.cnt = cnt;
+                    pop.innerHTML = cnt;
+                    playArea.appendChild(pop);
+                    cnt++;
+                }
+            }
+            
+        }
+
+        function createPop(){
+            let div = document.createElement("div");
+            div.classList.add("pop");
+            return div;
+        }
+
+        document.addEventListener('DOMContentLoaded',getData);
+
+        function getData() {
+            console.log("DOM loaded");
+            fetch("http://discoveryvip.com/shared/json.php?f=game")
+              .then(function (rep) {
+                return rep.json();
+              })
+              .then(function (data) {
+                gameObj = data.data;
+                //buildBoard();
+                console.log(gameObj);
+              });
+        }
+    </script>
 </body>
 </html>
