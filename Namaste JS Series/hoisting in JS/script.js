@@ -2,15 +2,15 @@ console.log("hoisting example");
 
 /* Example - 1 for understanding hoisting */
 
-// var x = 7;
+var x = 7;
 
-// function getName() {
-//   console.log("Namaste JavaScript");
-// }
+function getName() {
+  console.log("Namaste JavaScript");
+}
 
-// getName();
+getName();
 
-// console.log(x);
+console.log(x);
 
 /* Example - 2 for understanding hoisting */
 
@@ -55,13 +55,13 @@ console.log("hoisting example");
 /* Example - 5 for understanding hoisting */
 
 
-console.log(x);
+// console.log(x);
 
-console.log(getName);
+// console.log(getName);
 
-var x = 7;
+// var x = 7;
 
-var getName = () => {
-  console.log("Namaste JavaScript");
-};
-getName();
+// var getName = () => {
+//   console.log("Namaste JavaScript");
+// };
+// getName();
