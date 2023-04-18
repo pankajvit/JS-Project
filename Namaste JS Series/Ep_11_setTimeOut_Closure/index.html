@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setTimeout + Closure Interview Question</title>
+</head>
+<body>
+    
+    <script>
+
+        //Example - 1 of JS Closure with setTimeout
+        /*function x(){
+            var i = 1;
+            setTimeout(function(){
+                console.log(i);
+            },2000);
+        }
+        x();
+        console.log('Namaste Javascript');*/
+
+        // Example - 2 of JS Closure with setTimeout
+        function x() {
+            
+            for(let i=1;i<=5;i++){
+                console.log(i);
+                /*setTimeout(function () {
+                    console.log(i);
+                }, 1000 * i);*/
+            }
+            console.log("Namaste JavaScript");
+        }
+        x();
+    </script>
+</body>
+</html>
