@@ -8,15 +8,21 @@
 </head>
 <body>
     <script>
-        function outer(){
-            let a = 10;
-            function inner(){
+        /*function a(){
+            let a = 7;
+            function b(){
                 console.log(a);
             }
-            return inner;
+            return b;
         }
+        a()();*/
+        var b = function(param1){
+            return function(){
 
-        outer()();
+            }
+        }
+        
+        console.log(b());
     </script>
 </body>
 </html>
