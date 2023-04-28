@@ -10,6 +10,7 @@
     
 
     <script>
+        /*
         const arr = [5, 1, 3, 2, 6];
 
         // Double - [10, 2, 6, 4, 12];
@@ -33,6 +34,39 @@
         }
         let binaryArr = arr.map(convertToBinary);
         console.log(binaryArr);
+        */
+
+        const arr = [5, 1, 3, 2, 5, 8];
+
+        // filter odd values
+        function isOdd(x){
+            return x % 2;
+        }
+
+        const oddArr = arr.filter(isOdd);
+        console.log(oddArr);
+
+        // filter even values
+        function isEven(x){
+            return x % 2 === 0;
+        }
+        
+        const evenArr = arr.filter(isEven);
+        console.log(evenArr);
+        // filter which is greater than 4 
+        function isGreaterThanFour(x){
+            return x > 4;
+        }
+
+        const greaterThan4Arr = arr.filter(isGreaterThanFour);
+        console.log(greaterThan4Arr);
+        // filter which is less than 3
+        function isLesserThanThree(x){
+            return x < 3;
+        }
+
+        const lesserThanThreeArr = arr.filter(isLesserThanThree);
+        console.log(lesserThanThreeArr);
     </script>
 </body>
 </html>
